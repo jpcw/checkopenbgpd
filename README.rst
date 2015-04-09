@@ -37,7 +37,7 @@ Check OpenBGPD Nagios|Icinga|shinken|etc plugin.
 usage
 -------
 
-This check runs bgpctl show and check that all bgp sessions are up.
+This check *runs bgpctl show* and check that all bgp sessions are up.
 
 
 sample outputs :
