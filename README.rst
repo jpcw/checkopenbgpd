@@ -43,23 +43,26 @@ This check runs *bgpctl show* and check that all bgp sessions are up.
 sample outputs :
 
 + Ok
-    
+
+
     ::
       
       $ check_openbgpd 
       CHECKBGPCTL OK - PEER-1 is 0 | 'PEER-1'=529581;;;0 
     
 
-Sometimes you have some peer sessions in idle state, and it 's not critical. Typically a session which depends on a slave carp interface. You have an option '--idle-list', the plugin will take care if the session is in this list, and returns an 'OK' state for this session.
+  Sometimes you have some peer sessions in idle state, and it 's not critical. Typically a session which depends on a slave carp interface. You have an option '--idle-list', the plugin will take care if the session is in this list, and returns an 'OK' state for this session.
 
     ::
 
       $ check_openbgpd --idle-list PEER-2 OTHER-PEER
       CHECKBGPCTL OK - PEER-2 is 0 | 'PEER-1'=529581;;;0 'PEER-2'=0;;;0 'OTHER-PEER'=0;;;0
+    
+
 
 + Critical
     
-    Critical state is reached with first idle session not escaped in the optionnal '--idle-list' 
+  Critical state is reached with first idle session not escaped in the optionnal '--idle-list' 
  
     ::
       
@@ -69,20 +72,16 @@ Sometimes you have some peer sessions in idle state, and it 's not critical. Typ
     
 + Unknown
 
-    if an error occured during the check, the plugin raises a check error, which returns an UNKNOWN state.
-    
-    typically UNKNOWN causes
-        
-        + OpenBGPD is not running
-        
-        ::
+  if an error occured during the check, the plugin raises a check error, which returns an UNKNOWN state.
+   
+  typically UNKNOWN causes
+       
+        + OpenBGPD is not running ::
           
           CHECKBGPCTL UNKNOWN - host.domain.tld bgpctl: connect: /var/run/bgpd.sock: No such file or directory
         
     
-        + you're not in the wheel group, and can't read the bgpctl sosk
-        
-        ::
+        + you're not in the wheel group, and can't read the bgpctl sosk ::
           
           CHECKBGPCTL UNKNOWN - host.domain.tld bgpctl: connect: /var/run/bgpd.sock: Permission denied 
 
