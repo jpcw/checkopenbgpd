@@ -1,16 +1,10 @@
 Changelog
 =========
 
-0.2.dev0
+0.5.dev0
 ----------------
 
 - Fix Cosmetics on README
-
-
-0.3 (unreleased)
-----------------
-
-- Nothing changed yet.
 
 
 0.2 (2015-04-09)
