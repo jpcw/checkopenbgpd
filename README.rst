@@ -94,9 +94,17 @@ Sometimes you have some peer sessions in idle state, and it 's not critical. Typ
 Install
 ------------
 
-easy_install | pip within or not a virtualenv::
+extract the tarball and :: 
+
+    python setup.py install
+
+Maybe you have installed setuptools with ::
+
+    pkg_add py-setuptools
+
+then just ::
     
-    easy_install | pip install checkopenbgpd
+    easy_install checkopenbgpd
 
 check_openbgpd is located at /usr/local/bin/check_openbgpd
 
@@ -114,7 +122,7 @@ Command definition ::
     
     define command{
         command_name    check_ssh_bgpctl
-        command_line    $USER1$/check_by_ssh -H $HOSTADDRESS$ -i /var/spool/icinga/.ssh/id_rsa -C "sudo /usr/local/bin/check_openbgpd"
+        command_line    $USER1$/check_by_ssh -H $HOSTADDRESS$ -i /var/spool/icinga/.ssh/id_rsa -C "sudo /usr/local/bin/check_openbgpd --idle-list $ARG1$"
     }
 
 the service itself ::
@@ -123,7 +131,7 @@ the service itself ::
         use                     my-service
         host_name               hostname
         service_description     bgpctl
-        check_command           check_ssh_bgpctl
+        check_command           check_ssh_bgpctl!
     }
 
 **NRPE**
@@ -138,7 +146,7 @@ nagios command definition ::
     
     define command{
         command_name    check_nrpe_bgpctl
-        command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -c check_openbgpd
+        command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -c check_openbgpd -a "--crit-list $ARGS1"
     }
 
 the service itself ::
@@ -147,7 +155,7 @@ the service itself ::
         use                     my-service
         host_name               hostname
         service_description     bgpctl
-        check_command           check_nrpe_bgpctl
+        check_command           check_nrpe_bgpctl!
     }   
 
 testing
