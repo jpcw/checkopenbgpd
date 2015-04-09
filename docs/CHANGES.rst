@@ -2,10 +2,10 @@ Changelog
 =========
 
 
-0.6 (unreleased)
-----------------
+0.6.dev0 (unreleased)
+----------------------
 
-- Nothing changed yet.
+- improve summary
 
 0.5
 ----------------

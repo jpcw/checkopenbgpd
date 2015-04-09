@@ -48,7 +48,7 @@ sample outputs :
     ::
       
       $ check_openbgpd 
-      CHECKBGPCTL OK - PEER-1 is 0 | 'PEER-1'=529581;;;0 
+      CHECKBGPCTL OK - All bgp sessions in correct state | 'PEER-1'=529581;;;0 
     
 
   Sometimes you have some peer sessions in idle state, and it 's not critical. Typically a session which depends on a slave carp interface. You have an option '--idle-list', the plugin will take care if the session is in this list, and returns an 'OK' state for this session.
@@ -56,7 +56,7 @@ sample outputs :
     ::
       
       $ check_openbgpd --idle-list PEER-2 OTHER-PEER
-      CHECKBGPCTL OK - PEER-2 is 0 | 'PEER-1'=529581;;;0 'PEER-2'=0;;;0 'OTHER-PEER'=0;;;0
+      CHECKBGPCTL OK - All bgp sessions in correct state | 'PEER-1'=529581;;;0 'PEER-2'=0;;;0 'OTHER-PEER'=0;;;0
     
 
 
@@ -67,7 +67,7 @@ sample outputs :
     ::
       
      $ check_openbgpd
-     CHECKBGPCTL CRITICAL - OTHER-PEER is None (outside range 0:) | 'PEER-1'=529918;;;0 'OTHER-PEER'=None;;;0
+     CHECKBGPCTL CRITICAL - OTHER-PEER is idle (outside range 0:) | 'PEER-1'=529918;;;0 'OTHER-PEER'=None;;;0
     
     
 + Unknown

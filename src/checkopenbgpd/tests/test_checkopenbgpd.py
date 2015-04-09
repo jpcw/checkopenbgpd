@@ -6,6 +6,7 @@ try:
 except ImportError:  # pragma: no cover
     import unittest
 
+import nagiosplugin
 from nagiosplugin.metric import Metric
 from nagiosplugin import CheckError
 
@@ -95,7 +96,7 @@ class Test_checkopenbgpd(unittest.TestCase):
             second = next(probe)
             self.assertEquals(second.value, 529001)
             third = next(probe)
-            self.assertIsNone(third.value)
+            self.assertEquals(third.value, 'idle')
 
     def test_check_probe_with_idle_list(self):
         check = checkopenbgpd.CheckBgpCtl(['THIRD'])
@@ -112,3 +113,19 @@ class Test_checkopenbgpd(unittest.TestCase):
             self.assertEquals(second.value, 529001)
             third = next(probe)
             self.assertEquals(third.value, 0)
+
+
+class Test_AuditSummary(unittest.TestCase):
+
+    def test_ok(self):
+        from nagiosplugin.result import Result, Results
+        from nagiosplugin.state import Ok
+        from checkopenbgpd.checkopenbgpd import AuditSummary
+        results = Results()
+        ok_r1 = Result(Ok, '', nagiosplugin.Metric('met1', 529001))
+        ok_r2 = Result(Ok, '', nagiosplugin.Metric('met1', 0))
+        results.add(ok_r1)
+        results.add(ok_r2)
+        summary = AuditSummary()
+        sum_ok = summary.ok(results)
+        self.assertEqual(sum_ok, 'All bgp sessions in correct state')

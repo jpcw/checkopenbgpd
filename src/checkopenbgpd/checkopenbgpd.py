@@ -79,6 +79,8 @@ class CheckBgpCtl(nagiosplugin.Resource):
                 if session.Neighbor in self.idle_list:
                     return 0
 
+            return 'idle'
+
     def probe(self):
         """."""
         self.sessions = self._get_sessions()
@@ -87,6 +89,15 @@ class CheckBgpCtl(nagiosplugin.Resource):
                 yield nagiosplugin.Metric(session.Neighbor,
                                           self.check_session(session),
                                           min=0, context='bgpctl')
+
+
+class AuditSummary(nagiosplugin.Summary):
+    """Status line conveying informations.
+    """
+
+    def ok(self, results):
+        """Summarize OK(s)."""
+        return 'All bgp sessions in correct state'
 
 
 def parse_args():  # pragma: no cover
@@ -105,7 +116,8 @@ def main():  # pragma: no cover
     args = parse_args()
     check = nagiosplugin.Check(CheckBgpCtl(args.idle_list),
                                nagiosplugin.ScalarContext('bgpctl', None,
-                                                          '0:'),)
+                                                          '0:'),
+                               AuditSummary())
     check.main(args.verbose)
 
 # vim:set et sts=4 ts=4 tw=80:
