@@ -26,6 +26,7 @@ install_requires=['nagiosplugin']
 
 if sys.version_info < (2, 7):
     extras_require = {'test': ['setuptools', 'mock', 'unittest2', 'argparse']}
+    install_requires.append('argparse')
 else:
     extras_require = {'test': ['setuptools', 'mock']}
 
