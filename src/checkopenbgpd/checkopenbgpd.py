@@ -69,17 +69,18 @@ class CheckBgpCtl(nagiosplugin.Resource):
 
     def check_session(self, session):
         """check session is up, or not in idle list if idle."""
+        result = 'U'
         state = session.State_PrfRcvd
 
         if state.isdigit():
-            return int(state)
+            result = int(state)
 
         if state == 'Idle':
             if self.idle_list is not None:
                 if session.Neighbor in self.idle_list:
-                    return 0
+                    result = 0
 
-            return 'idle'
+        return result
 
     def probe(self):
         """."""

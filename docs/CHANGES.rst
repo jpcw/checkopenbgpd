@@ -5,7 +5,7 @@ Changelog
 0.7 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- fix 'idle' breaks performance data rendering https://github.com/jpcw/checkopenbgpd/issues/1
 
 
 0.6 (2015-04-09)

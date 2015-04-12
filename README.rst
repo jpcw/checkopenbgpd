@@ -37,7 +37,7 @@ Check OpenBGPD Nagios|Icinga|shinken|etc plugin.
 usage
 -------
 
-This check *runs bgpctl show* and check that all bgp sessions are up.
+This check runs **bgpctl show** and checks that all bgp sessions are up.
 
 
 sample outputs :
@@ -67,7 +67,7 @@ sample outputs :
     ::
       
      $ check_openbgpd
-     CHECKBGPCTL CRITICAL - OTHER-PEER is idle (outside range 0:) | 'PEER-1'=529918;;;0 'OTHER-PEER'=None;;;0
+     CHECKBGPCTL CRITICAL - OTHER-PEER is U (outside range 0:) | 'PEER-1'=529918;;;0 'OTHER-PEER'=U;;;0
     
     
 + Unknown

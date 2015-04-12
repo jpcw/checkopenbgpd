@@ -80,7 +80,7 @@ class Test_checkopenbgpd(unittest.TestCase):
             _popen.return_value = output, ''
             sessions = check._get_sessions()
             result = check.check_session(sessions[0])
-            self.assertIsNone(result)
+            self.assertEquals(result, 'U')
 
     def test_check_probe_without_idle_list(self):
         check = checkopenbgpd.CheckBgpCtl(None)
@@ -92,11 +92,11 @@ class Test_checkopenbgpd(unittest.TestCase):
             probe = check.probe()
             first = next(probe)
             self.assertEqual(type(first), Metric)
-            self.assertIsNone(first.value)
+            self.assertEquals(first.value, 'U')
             second = next(probe)
             self.assertEquals(second.value, 529001)
             third = next(probe)
-            self.assertEquals(third.value, 'idle')
+            self.assertEquals(third.value, 'U')
 
     def test_check_probe_with_idle_list(self):
         check = checkopenbgpd.CheckBgpCtl(['THIRD'])
@@ -108,7 +108,7 @@ class Test_checkopenbgpd(unittest.TestCase):
             probe = check.probe()
             first = next(probe)
             self.assertEqual(type(first), Metric)
-            self.assertIsNone(first.value)
+            self.assertEquals(first.value, 'U')
             second = next(probe)
             self.assertEquals(second.value, 529001)
             third = next(probe)
