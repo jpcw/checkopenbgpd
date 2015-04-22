@@ -62,11 +62,11 @@ Sometimes you have some peer sessions in idle state, and it 's not critical. Typ
 
 Critical state is reached with first idle session not escaped in the optionnal '--idle-list' 
  
- ::
-  
-  $ check_openbgpd
-  CHECKBGPCTL CRITICAL - OTHER-PEER is U (outside range 0:) | 'PEER-1'=529918;;;0 'OTHER-PEER'=U;;;0
-    
+::
+ 
+ $ check_openbgpd
+ CHECKBGPCTL CRITICAL - OTHER-PEER is U (outside range 0:) | 'PEER-1'=529918;;;0 'OTHER-PEER'=U;;;0
+
 
 + Unknown
 
