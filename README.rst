@@ -44,29 +44,29 @@ sample outputs :
 
 + Ok
 
-    ::
-      
-      $ check_openbgpd 
-      CHECKBGPCTL OK - All bgp sessions in correct state | 'PEER-1'=529581;;;0 
+ ::
+  
+  $ check_openbgpd 
+  CHECKBGPCTL OK - All bgp sessions in correct state | 'PEER-1'=529581;;;0 
     
 
   Sometimes you have some peer sessions in idle state, and it 's not critical. Typically a session which depends on a slave carp interface. You have an option '--idle-list', the plugin will take care if the session is in this list, and returns an 'OK' state for this session.
 
-    ::
-      
-      $ check_openbgpd --idle-list PEER-2 OTHER-PEER
-      CHECKBGPCTL OK - All bgp sessions in correct state | 'PEER-1'=529581;;;0 'PEER-2'=0;;;0 'OTHER-PEER'=0;;;0
-    
+ ::
+ 
+  $ check_openbgpd --idle-list PEER-2 OTHER-PEER
+  CHECKBGPCTL OK - All bgp sessions in correct state | 'PEER-1'=529581;;;0 'PEER-2'=0;;;0 'OTHER-PEER'=0;;;0
+
 
 
 + Critical
 
   Critical state is reached with first idle session not escaped in the optionnal '--idle-list' 
  
-    ::
-      
-     $ check_openbgpd
-     CHECKBGPCTL CRITICAL - OTHER-PEER is U (outside range 0:) | 'PEER-1'=529918;;;0 'OTHER-PEER'=U;;;0
+ ::
+  
+  $ check_openbgpd
+  CHECKBGPCTL CRITICAL - OTHER-PEER is U (outside range 0:) | 'PEER-1'=529918;;;0 'OTHER-PEER'=U;;;0
     
 
 + Unknown
@@ -77,22 +77,22 @@ sample outputs :
        
     + OpenBGPD is not running 
 
-     ::
-      
-      CHECKBGPCTL UNKNOWN - host.domain.tld bgpctl: connect: /var/run/bgpd.sock: No such file or directory
+ ::
+  
+  CHECKBGPCTL UNKNOWN - host.domain.tld bgpctl: connect: /var/run/bgpd.sock: No such file or directory
 
-    + you're not in the wheel group, and can't read the bgpctl sosk 
+ + you're not in the wheel group, and can't read the bgpctl sosk 
 
-     ::
-      
-      CHECKBGPCTL UNKNOWN - host.domain.tld bgpctl: connect: /var/run/bgpd.sock: Permission denied 
+   ::
+    
+    CHECKBGPCTL UNKNOWN - host.domain.tld bgpctl: connect: /var/run/bgpd.sock: Permission denied 
 
-      sudo is your friend to run this plugin with an unprivileged user. A sample config here 
+    sudo is your friend to run this plugin with an unprivileged user. A sample config here 
 
-     ::
-      
-      icinga ALL = NOPASSWD: /usr/local/bin/check_openbgpd
-      
+ ::
+   
+   icinga ALL = NOPASSWD: /usr/local/bin/check_openbgpd
+   
 
 Install
 ------------
