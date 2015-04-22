@@ -44,7 +44,6 @@ sample outputs :
 
 + Ok
 
-
     ::
       
       $ check_openbgpd 
@@ -61,7 +60,7 @@ sample outputs :
 
 
 + Critical
-    
+
   Critical state is reached with first idle session not escaped in the optionnal '--idle-list' 
  
     ::
@@ -69,7 +68,7 @@ sample outputs :
      $ check_openbgpd
      CHECKBGPCTL CRITICAL - OTHER-PEER is U (outside range 0:) | 'PEER-1'=529918;;;0 'OTHER-PEER'=U;;;0
     
-    
+
 + Unknown
 
   if an error occured during the check, the plugin raises a check error, which returns an UNKNOWN state.
