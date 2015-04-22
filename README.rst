@@ -70,8 +70,8 @@ Critical state is reached with first idle session not escaped in the optionnal '
 
 + Unknown
 
-f an error occured during the check, the plugin raises a check error, which returns an UNKNOWN state.
-   
+if an error occured during the check, the plugin raises a check error, which returns an UNKNOWN state.
+
 typically UNKNOWN causes
 
  + OpenBGPD is not running 
