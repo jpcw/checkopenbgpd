@@ -83,11 +83,11 @@ sample outputs :
 
  + you're not in the wheel group, and can't read the bgpctl sosk 
 
-   ::
-    
-    CHECKBGPCTL UNKNOWN - host.domain.tld bgpctl: connect: /var/run/bgpd.sock: Permission denied 
+  ::
+   
+   CHECKBGPCTL UNKNOWN - host.domain.tld bgpctl: connect: /var/run/bgpd.sock: Permission denied 
 
-    sudo is your friend to run this plugin with an unprivileged user. A sample config here 
+   sudo is your friend to run this plugin with an unprivileged user. A sample config here 
 
  ::
    
