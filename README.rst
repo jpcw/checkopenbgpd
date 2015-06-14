@@ -19,7 +19,7 @@ Check OpenBGPD Nagios|Icinga|shinken|etc plugin.
 .. image:: https://pypip.in/py_versions/checkopenbgpd/badge.svg
     :target: https://pypi.python.org/pypi/checkopenbgpd/
 
-.. image:: https://pypip.in/version/checkopenbgpd/badge.svg?text=version
+.. image:: https://img.shields.io/pypi/v/checkopenbgpd.svg
       :target: https://pypi.python.org/pypi/checkopenbgpd/
 
 .. image:: https://api.travis-ci.org/jpcw/checkopenbgpd.svg?branch=master
