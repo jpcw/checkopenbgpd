@@ -22,7 +22,7 @@ Check OpenBGPD Nagios|Icinga|shinken|etc plugin.
 .. image:: https://api.travis-ci.org/jpcw/checkopenbgpd.svg?branch=master
       :target: http://travis-ci.org/jpcw/checkopenbgpd
 
-.. image:: https://coveralls.io/repos/jpcw/checkopenbgpd/badge.png?branch=master
+.. image:: https://img.shields.io/coveralls/jpcw/checkopenbgpd.svg
       :target: https://coveralls.io/r/jpcw/checkopenbgpd
 
 + Source: https://github.com/jpcw/checkopenbgpd
