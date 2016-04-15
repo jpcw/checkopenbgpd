@@ -5,7 +5,7 @@ Changelog
 0.8 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- python3.5 support
 
 
 0.7 (2015-04-12)
