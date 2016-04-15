@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.8 (unreleased)
+0.8 (2016-04-15)
 ----------------
 
 - python3.5 support
