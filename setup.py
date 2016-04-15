@@ -5,7 +5,7 @@ import os
 import sys
 
 
-version = '0.8'
+version = '0.9.dev0'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
