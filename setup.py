@@ -9,6 +9,7 @@ version = '0.9.dev0'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+
 def read_file(*pathes):
     path = os.path.join(here, *pathes)
     if os.path.isfile(path):
@@ -17,12 +18,13 @@ def read_file(*pathes):
     else:
         return ''
 
+
 desc_files = (('README.rst',), ('docs', 'CHANGES.rst'),
-                ('docs', 'CONTRIBUTORS.rst'))
+              ('docs', 'CONTRIBUTORS.rst'))
 
 long_description = '\n\n'.join([read_file(*pathes) for pathes in desc_files])
 
-install_requires=['nagiosplugin']
+install_requires = ['nagiosplugin']
 
 if sys.version_info < (2, 7):
     extras_require = {'test': ['setuptools', 'mock', 'unittest2', 'argparse']}
@@ -34,11 +36,12 @@ setup(name='checkopenbgpd',
       version=version,
       description="Check OpenBGPD sessions Nagios|Icinga|shinken|etc plugin",
       long_description=long_description,
-      platforms = ["any"],
+      platforms=["any"],
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-        "Programming Language :: Python",        "License :: OSI Approved :: BSD License",
+        "Programming Language :: Python",
+        "License :: OSI Approved :: BSD License",
         'Development Status :: 5 - Production/Stable',
         'Environment :: Plugins',
         'Intended Audience :: Developers',
@@ -56,11 +59,11 @@ setup(name='checkopenbgpd',
         ],
       keywords="Nagios Icinga plugin check openbgpd openbsd monitoring",
       author="Jean-Philippe Camguilhem",
-      author_email="jp.camguilhem__at__gmail.com",
+      author_email="jpcw__at__camguilhem.net",
       url="https://github.com/jpcw/checkopenbgpd/",
       license="BSD",
       packages=find_packages("src"),
-      package_dir = {"": "src"},
+      package_dir={"": "src"},
       include_package_data=True,
       zip_safe=False,
       install_requires=install_requires,
