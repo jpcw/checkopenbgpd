@@ -134,6 +134,31 @@ the service itself ::
         check_command           check_ssh_bgpctl!
     }
 
+icinga2 command ::
+    
+	object CheckCommand "openbgpd" {
+        import "plugin-check-command"
+        import "ipv4-or-ipv6"
+        command = [ PluginDir + "/check_by_ssh" ]
+        arguments = {
+            "-H" = "$openbgpd_address$"
+            "-i" = "$ssh_id$"
+            "-p" = "$ssh_port$"
+            "-C" = "$ssh_command$"
+    	    }
+        vars.openbgpd_address = "$check_address$"
+        vars.ssh_id = "/var/spool/icinga/.ssh/id_rsa"
+        vars.ssh_port = "$vars.ssh_port$"
+        vars.ssh_command = "sudo /usr/local/bin/check_openbgpd"
+	}
+
+icinga2 service ::
+	
+	apply Service "openbgpd" {
+  	    check_command = "openbgpd"
+  	    assign where host.name == "hostname"
+	}
+
 **NRPE**
 
 add this line to /usr/local/etc/nrpe.cfg ::
