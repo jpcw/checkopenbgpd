@@ -5,7 +5,11 @@ Changelog
 0.9 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- fix session with max-prefix https://github.com/jpcw/checkopenbgpd/issues/3
+  
+  thanks drustan for bug report
+  
+  thanks Dam64 which up a session with max-prefix for tests and debug
 
 
 0.8 (2016-04-15)
@@ -33,4 +37,4 @@ Changelog
 0.1 (2015-04-09)
 ----------------
 
-- Jean-Philippe Camguilhem <jp.camguilhem__at__gmail.com>
+- Jean-Philippe Camguilhem <jpcw__at__camguilhem.net>
