@@ -68,7 +68,7 @@ class CheckBgpCtl(nagiosplugin.Resource):
                         for line in output]
 
     def check_session(self, session):
-        """check session is up, or not in idle list if idle."""
+        """Check session is up, or not in idle list if idle."""
         result = 'U'
         state = session.State_PrfRcvd.split('/')[0]
 
@@ -93,8 +93,7 @@ class CheckBgpCtl(nagiosplugin.Resource):
 
 
 class AuditSummary(nagiosplugin.Summary):
-    """Status line conveying informations.
-    """
+    """Status line conveying informations."""
 
     def ok(self, results):
         """Summarize OK(s)."""
