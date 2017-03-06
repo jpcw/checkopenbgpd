@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.9 (unreleased)
+0.9 (2017-03-07)
 ----------------
 
 - fix session with max-prefix https://github.com/jpcw/checkopenbgpd/issues/3
