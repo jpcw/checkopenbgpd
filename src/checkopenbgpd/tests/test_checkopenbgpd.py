@@ -17,9 +17,10 @@ no_bgpd = 'bgpctl: connect: /var/run/bgpd.sock: No such file or directory'
 
 
 bgpctl_sh = 'Neighbor     AS MsgRcvd MsgSent OutQ Up/Down   State/PrfRcvd\n'\
-            'FIRST     65001   75386       6     0 5d02h04m Idlei\n'\
+            'FIRST     65001   75386       6     0 5d02h04m Idle\n'\
             'SECOND    65001 2832677  113152     0 5d01h58m 529001\n'\
-            'THIRD     65002 3914143  103074     0 3d11h59m Idle'
+            'THIRD     65002 3914143  103074     0 3d11h59m Idle\n'\
+            'FOURTH    65222     281     278     0 02:16:21 3/20'
 
 
 class Test_checkopenbgpd(unittest.TestCase):
@@ -49,7 +50,7 @@ class Test_checkopenbgpd(unittest.TestCase):
         with mock.patch("checkopenbgpd.checkopenbgpd._popen") as _popen:
             _popen.return_value = output, ''
             sessions = check._get_sessions()
-            self.assertEquals(len(sessions), 3)
+            self.assertEquals(len(sessions), 4)
             self.assertEquals(type(sessions[0]), checkopenbgpd.Session)
 
     def test_check_session_is_up(self):
@@ -97,6 +98,8 @@ class Test_checkopenbgpd(unittest.TestCase):
             self.assertEquals(second.value, 529001)
             third = next(probe)
             self.assertEquals(third.value, 'U')
+            fourth = next(probe)
+            self.assertEquals(fourth.value, 3)
 
     def test_check_probe_with_idle_list(self):
         check = checkopenbgpd.CheckBgpCtl(['THIRD'])
@@ -113,6 +116,8 @@ class Test_checkopenbgpd(unittest.TestCase):
             self.assertEquals(second.value, 529001)
             third = next(probe)
             self.assertEquals(third.value, 0)
+            fourth = next(probe)
+            self.assertEquals(fourth.value, 3)
 
 
 class Test_AuditSummary(unittest.TestCase):
@@ -124,8 +129,10 @@ class Test_AuditSummary(unittest.TestCase):
         results = Results()
         ok_r1 = Result(Ok, '', nagiosplugin.Metric('met1', 529001))
         ok_r2 = Result(Ok, '', nagiosplugin.Metric('met1', 0))
+        ok_r4 = Result(Ok, '', nagiosplugin.Metric('met1', 3))
         results.add(ok_r1)
         results.add(ok_r2)
+        results.add(ok_r4)
         summary = AuditSummary()
         sum_ok = summary.ok(results)
         self.assertEqual(sum_ok, 'All bgp sessions in correct state')

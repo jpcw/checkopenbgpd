@@ -70,7 +70,7 @@ class CheckBgpCtl(nagiosplugin.Resource):
     def check_session(self, session):
         """check session is up, or not in idle list if idle."""
         result = 'U'
-        state = session.State_PrfRcvd
+        state = session.State_PrfRcvd.split('/')[0]
 
         if state.isdigit():
             result = int(state)
