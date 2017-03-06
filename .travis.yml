@@ -10,7 +10,7 @@ python:
   - pypy
   - pypy3
 install:
-  - python bootstrap-buildout.py
+  - python bootstrap-buildout.py --setuptools-version=33.1.1
   - bin/buildout -N
 script:
   - make -k test
