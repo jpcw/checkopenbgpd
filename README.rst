@@ -187,7 +187,7 @@ testing
 ---------
 ::
      
-     python bootstrap-buildout.py
+     python bootstrap-buildout.py --setuptools-version=33.1.1 --buildout-version=2.5.2
      bin/buildout -N
      bin/test
      
