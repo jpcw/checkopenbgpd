@@ -47,18 +47,18 @@ sample outputs :
  $ check_openbgpd 
  CHECKBGPCTL OK - All bgp sessions in correct state | 'PEER-1'=529581;;;0 
     
-Sometimes you have some peer sessions in idle state, and it 's not critical. Typically a session which depends on a slave carp interface. You have an option '--idle-list', the plugin will take care if the session is in this list, and returns an 'OK' state for this session.
+Sometimes you have some peer sessions in ignore state, and it 's not critical. Typically a session which depends on a slave carp interface. You have an option '--ignore-list', the plugin will take care if the session is in this list, and returns an 'OK' state for this session.
 
 ::
  
-  $ check_openbgpd --idle-list PEER-2 OTHER-PEER
+  $ check_openbgpd --ignore-list PEER-2 OTHER-PEER
   CHECKBGPCTL OK - All bgp sessions in correct state | 'PEER-1'=529581;;;0 'PEER-2'=0;;;0 'OTHER-PEER'=0;;;0
 
 
 
 + Critical
 
-Critical state is reached with first idle session not escaped in the optionnal '--idle-list' 
+Critical state is reached with first ignore session not escaped in the optionnal '--ignore-list' 
  
 ::
  
@@ -122,7 +122,7 @@ Command definition ::
     
     define command{
         command_name    check_ssh_bgpctl
-        command_line    $USER1$/check_by_ssh -H $HOSTADDRESS$ -i /var/spool/icinga/.ssh/id_rsa -C "sudo /usr/local/bin/check_openbgpd --idle-list $ARG1$"
+        command_line    $USER1$/check_by_ssh -H $HOSTADDRESS$ -i /var/spool/icinga/.ssh/id_rsa -C "sudo /usr/local/bin/check_openbgpd --ignore-list $ARG1$"
     }
 
 the service itself ::
@@ -171,7 +171,7 @@ nagios command definition ::
     
     define command{
         command_name    check_nrpe_bgpctl
-        command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -c check_openbgpd -a "--crit-list $ARGS1"
+        command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -c check_openbgpd -a "--ignore-list $ARGS1"
     }
 
 the service itself ::
