@@ -125,4 +125,8 @@ def main():  # pragma: no cover
                                AuditSummary())
     check.main(args.verbose)
 
+
+if __name__ == '__main__':  # pragma: no cover
+    main()
+
 # vim:set et sts=4 ts=4 tw=80:
