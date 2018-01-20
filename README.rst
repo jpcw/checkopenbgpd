@@ -84,11 +84,11 @@ typically UNKNOWN causes
    
   CHECKBGPCTL UNKNOWN - host.domain.tld bgpctl: connect: /var/run/bgpd.sock: Permission denied 
 
-  sudo is your friend to run this plugin with an unprivileged user. A sample config here 
+  doas is your friend to run this plugin with an unprivileged user. A sample config here 
 
  ::
   
-  icinga ALL = NOPASSWD: /usr/local/bin/check_openbgpd
+  permit nopass icinga as root cmd /usr/local/bin/check_openbgpd
 
 
 Install
