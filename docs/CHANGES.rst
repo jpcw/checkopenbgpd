@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.10 (unreleased)
+0.10 (2018-01-20)
 -----------------
 
 - replace --idle-list with a more permissive --ignore-list https://github.com/jpcw/checkopenbgpd/issues/5
