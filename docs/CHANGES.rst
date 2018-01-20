@@ -5,6 +5,7 @@ Changelog
 0.10 (unreleased)
 -----------------
 
+- replace --idle-list with a more permissive --ignore-list https://github.com/jpcw/checkopenbgpd/issues/5
 - fix broken Python3 https://github.com/jpcw/checkopenbgpd/issues/4
 
 

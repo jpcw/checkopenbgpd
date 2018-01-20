@@ -47,8 +47,8 @@ class CheckBgpCtl(nagiosplugin.Resource):
     hostname = platform.node()
     cmd = 'bgpctl show'
 
-    def __init__(self, idle_list):
-        self.idle_list = idle_list
+    def __init__(self, ignore_list):
+        self.ignore_list = ignore_list
 
     def _get_sessions(self):
         """Runs 'bgpctl show'."""
@@ -73,16 +73,16 @@ class CheckBgpCtl(nagiosplugin.Resource):
                         for line in output]
 
     def check_session(self, session):
-        """Check session is up, or not in idle list if idle."""
-        result = 'U'
+        """Check session is up, or not in ignore list."""
+        result = -1
         state = session.State_PrfRcvd.split('/')[0]
 
         if state.isdigit():
             result = int(state)
 
-        if state == 'Idle':
-            if self.idle_list is not None:
-                if session.Neighbor in self.idle_list:
+        else:
+            if self.ignore_list is not None:
+                if session.Neighbor in self.ignore_list:
                     result = 0
 
         return result
@@ -110,7 +110,7 @@ def parse_args():  # pragma: no cover
     argp = argparse.ArgumentParser(description=__doc__)
     argp.add_argument('-v', '--verbose', action='count', default=0,
                       help='increase output verbosity (use up to 3 times)')
-    argp.add_argument('--idle-list', nargs='*')
+    argp.add_argument('--ignore-list', nargs='*')
 
     return argp.parse_args()
 
@@ -119,7 +119,7 @@ def parse_args():  # pragma: no cover
 def main():  # pragma: no cover
 
     args = parse_args()
-    check = nagiosplugin.Check(CheckBgpCtl(args.idle_list),
+    check = nagiosplugin.Check(CheckBgpCtl(args.ignore_list),
                                nagiosplugin.ScalarContext('bgpctl', None,
                                                           '0:'),
                                AuditSummary())

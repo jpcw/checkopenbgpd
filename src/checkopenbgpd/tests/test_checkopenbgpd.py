@@ -20,7 +20,9 @@ bgpctl_sh = 'Neighbor     AS MsgRcvd MsgSent OutQ Up/Down   State/PrfRcvd\n'\
             'FIRST     65001   75386       6     0 5d02h04m Idle\n'\
             'SECOND    65001 2832677  113152     0 5d01h58m 529001\n'\
             'THIRD     65002 3914143  103074     0 3d11h59m Idle\n'\
-            'FOURTH    65222     281     278     0 02:16:21 3/20'
+            'FOURTH    65222     281     278     0 02:16:21 3/20\n'\
+            'FIFTH     65115       0       0     0 Never    Active\n'\
+            'SIXTH     65115       0       0     0 Never    Active'
 
 
 class Test_checkopenbgpd(unittest.TestCase):
@@ -50,7 +52,7 @@ class Test_checkopenbgpd(unittest.TestCase):
         with mock.patch("checkopenbgpd.checkopenbgpd._popen") as _popen:
             _popen.return_value = output, ''
             sessions = check._get_sessions()
-            self.assertEquals(len(sessions), 4)
+            self.assertEquals(len(sessions), 6)
             self.assertEquals(type(sessions[0]), checkopenbgpd.Session)
 
     def test_check_session_is_up(self):
@@ -63,8 +65,8 @@ class Test_checkopenbgpd(unittest.TestCase):
             result = check.check_session(sessions[1])
             self.assertEquals(result, 529001)
 
-    def test_check_idle_session_in_idle_list(self):
-        check = checkopenbgpd.CheckBgpCtl(['THIRD'])
+    def test_check_ignore_session_in_ignore_list(self):
+        check = checkopenbgpd.CheckBgpCtl(['THIRD', 'FIFTH'])
         output = bgpctl_sh
 
         with mock.patch("checkopenbgpd.checkopenbgpd._popen") as _popen:
@@ -73,7 +75,7 @@ class Test_checkopenbgpd(unittest.TestCase):
             result = check.check_session(sessions[2])
             self.assertEquals(result, 0)
 
-    def test_check_idle_session_not_in_idle_list(self):
+    def test_check_ignore_session_not_in_ignore_list(self):
         check = checkopenbgpd.CheckBgpCtl(['THIRD'])
         output = bgpctl_sh
 
@@ -81,9 +83,9 @@ class Test_checkopenbgpd(unittest.TestCase):
             _popen.return_value = output, ''
             sessions = check._get_sessions()
             result = check.check_session(sessions[0])
-            self.assertEquals(result, 'U')
+            self.assertEquals(result, -1)
 
-    def test_check_probe_without_idle_list(self):
+    def test_check_probe_without_ignore_list(self):
         check = checkopenbgpd.CheckBgpCtl(None)
         output = bgpctl_sh
 
@@ -92,17 +94,21 @@ class Test_checkopenbgpd(unittest.TestCase):
             check._get_sessions()
             probe = check.probe()
             first = next(probe)
-            self.assertEqual(type(first), Metric)
-            self.assertEquals(first.value, 'U')
+            self.assertEquals(type(first), Metric)
+            self.assertEquals(first.value, -1)
             second = next(probe)
             self.assertEquals(second.value, 529001)
             third = next(probe)
-            self.assertEquals(third.value, 'U')
+            self.assertEquals(third.value, -1)
             fourth = next(probe)
             self.assertEquals(fourth.value, 3)
+            fifth = next(probe)
+            self.assertEquals(fifth.value, -1)
+            sixth = next(probe)
+            self.assertEquals(sixth.value, -1)
 
-    def test_check_probe_with_idle_list(self):
-        check = checkopenbgpd.CheckBgpCtl(['THIRD'])
+    def test_check_probe_with_ignore_list(self):
+        check = checkopenbgpd.CheckBgpCtl(['THIRD', 'FIFTH'])
         output = bgpctl_sh
 
         with mock.patch("checkopenbgpd.checkopenbgpd._popen") as _popen:
@@ -110,14 +116,18 @@ class Test_checkopenbgpd(unittest.TestCase):
             check._get_sessions()
             probe = check.probe()
             first = next(probe)
-            self.assertEqual(type(first), Metric)
-            self.assertEquals(first.value, 'U')
+            self.assertEquals(type(first), Metric)
+            self.assertEquals(first.value, -1)
             second = next(probe)
             self.assertEquals(second.value, 529001)
             third = next(probe)
             self.assertEquals(third.value, 0)
             fourth = next(probe)
             self.assertEquals(fourth.value, 3)
+            fifth = next(probe)
+            self.assertEquals(fifth.value, 0)
+            sixth = next(probe)
+            self.assertEquals(sixth.value, -1)
 
 
 class Test_AuditSummary(unittest.TestCase):
@@ -135,4 +145,4 @@ class Test_AuditSummary(unittest.TestCase):
         results.add(ok_r3)
         summary = AuditSummary()
         sum_ok = summary.ok(results)
-        self.assertEqual(sum_ok, 'All bgp sessions in correct state')
+        self.assertEquals(sum_ok, 'All bgp sessions in correct state')
