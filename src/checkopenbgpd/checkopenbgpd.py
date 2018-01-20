@@ -56,6 +56,11 @@ class CheckBgpCtl(nagiosplugin.Resource):
         _log.debug("running '%s'", self.cmd)
         stdout, stderr = _popen(self.cmd.split())
 
+        if not isinstance(stderr, str):  # pragma: no cover
+            stderr = stderr.decode()
+        if not isinstance(stdout, str):  # pragma: no cover
+            stdout = stdout.decode()
+
         if stderr:
             message = "%s %s" % (self.hostname, stderr.splitlines()[-1])
             _log.info(message)
