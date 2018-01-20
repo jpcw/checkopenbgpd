@@ -5,7 +5,7 @@ Changelog
 0.10 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- fix broken Python3 https://github.com/jpcw/checkopenbgpd/issues/4
 
 
 0.9 (2017-03-07)
